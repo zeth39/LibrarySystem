@@ -11,8 +11,8 @@ public class Main {
         LibrarySystem.loadData();
         BorrowerManagement.loadBorrowers();
 
-        System.out.println("---===== Library System =====---");
-        System.out.println("Library System by J.K.Y.S Tech");
+        System.out.println("---===== Welcome to the JK.YS Library System =====---");
+        System.out.println("Developed by Team J.K.Y.S Tech");
         
         //Priviledge
         Information activeUser = TypeMenu.call();
@@ -61,6 +61,8 @@ public static void adminMenu() {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
+
+    exitMessage();
 } 
 public static void studentMenu(String borrowerName) {
     int choice = -1;
@@ -93,6 +95,8 @@ public static void studentMenu(String borrowerName) {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
+
+    exitMessage();
 }
 
 public static void guestMenu() {
@@ -111,6 +115,7 @@ public static void guestMenu() {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
+    exitMessage();
 }
 
 public static void bookRecordsMenu() {
@@ -148,6 +153,12 @@ public static void bookRecordsMenu() {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
+}
+
+public static void exitMessage() {
+    System.out.println("\nThank you for using our Innovative and Aspiring JK.YS Library System!");
+    System.out.println("Developed by Team J.K.Y.S Tech");
+    System.out.println("Hope to see you again soon!");
 }
 
 }
