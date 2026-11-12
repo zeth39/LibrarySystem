@@ -61,6 +61,8 @@ public static void adminMenu() {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
+
+    exitMessage();
 } 
 public static void studentMenu(String borrowerName) {
     int choice = -1;
@@ -93,6 +95,8 @@ public static void studentMenu(String borrowerName) {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
+
+    exitMessage();
 }
 
 public static void guestMenu() {
