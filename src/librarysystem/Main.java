@@ -8,6 +8,9 @@ public class Main {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args){
 
+        LibrarySystem.loadData();
+        BorrowerManagement.loadBorrowers();
+
         System.out.println("---===== Library System =====---");
         System.out.println("Library System by J.K.Y.S Tech");
         
@@ -35,6 +38,7 @@ public static void adminMenu() {
         System.out.println("4. Book details");
         System.out.println("5. Show book catalog");
         System.out.println("6. Show all library materials");
+        System.out.println("7. Material borrowing history");
         System.out.println("0. Exit");
 
         choice = LibrarySystem.readNumber("Enter your choice: ");
@@ -50,8 +54,10 @@ public static void adminMenu() {
         } else if (choice == 5) {
             LibrarySystem.showCatalog();
         } else if (choice == 6) {
-    LibrarySystem.showAllMaterials();
-        }else if (choice != 0) {
+            LibrarySystem.showAllMaterials();
+        } else if (choice == 7) {
+            LibrarySystem.showMaterialHistory();
+        } else if (choice != 0) {
             System.out.println("Invalid menu choice! Select the available only");
         }
     }
@@ -71,13 +77,16 @@ public static void studentMenu(String borrowerName) {
         choice = LibrarySystem.readNumber("Enter your choice: ");
 
         if (choice == 1) {
-            LibrarySystem.borrowBook(borrowerName);
+            LibrarySystem.borrowBook(
+                LibrarySystem.readText("Borrower ID: "));
         } else if (choice == 2) {
-            LibrarySystem.returnBook(borrowerName);
+            LibrarySystem.returnBook(
+                LibrarySystem.readText("Borrower ID: "));
         } else if (choice == 3) {
             LibrarySystem.showCatalog();
         } else if (choice == 4) {
-            LibrarySystem.showBorrowerHistory(borrowerName);
+            LibrarySystem.showBorrowerHistory(
+                LibrarySystem.readText("Borrower ID: "));
         } else if (choice == 5) {
             LibrarySystem.showAllMaterials();
         } else if (choice != 0) {
@@ -115,6 +124,7 @@ public static void bookRecordsMenu() {
         System.out.println("4. Show book list");
         System.out.println("5. Borrow book");
         System.out.println("6. Return book");
+        System.out.println("7. Edit Material");
         System.out.println("0. Back to main menu");
 
         choice = LibrarySystem.readNumber("Enter your choice: ");
@@ -128,9 +138,12 @@ public static void bookRecordsMenu() {
         } else if (choice == 4) {
             LibrarySystem.showCatalog();
         } else if (choice == 5) {
-            LibrarySystem.borrowBook(LibrarySystem.readText("Borrower name: "));
+            LibrarySystem.borrowBook(LibrarySystem.readText("Borrower ID: "));
         } else if (choice == 6) {
-            LibrarySystem.returnBook(LibrarySystem.readText("Borrower name: "));
+            LibrarySystem.returnBook(
+                LibrarySystem.readText("Borrower ID: "));
+        } else if (choice == 7) {
+            LibrarySystem.editMaterial();
         } else if (choice != 0) {
             System.out.println("Invalid menu choice! Select the available only");
         }

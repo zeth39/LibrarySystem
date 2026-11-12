@@ -14,10 +14,7 @@ class TypeMenu {
             System.out.println("2. Student");
             System.out.println("3. Admin");
                 
-            int selectChoice = Main.input.nextInt();
-            choice = selectChoice;
-
-            Main.input.nextLine();
+            choice = LibrarySystem.readNumber("Enter your choice: ");
 
             switch (choice) {
                 case 1:

@@ -1,22 +1,25 @@
+
 package librarysystem;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-// Inheritance: Loan also inherits from LibraryRecord.
 class Loan extends LibraryRecord {
+
     private String bookId;
-    private String borrowerName;
+    private String borrowerId;
     private LocalDate borrowDate;
     private LocalTime borrowTime;
     private LocalDate dueDate;
     private LocalDate returnDate;
     private LocalTime returnTime;
 
-    public Loan(String bookId, String borrowerName, LocalDate borrowDate,
-            LocalTime borrowTime, LocalDate dueDate) {
+    public Loan(String bookId, String borrowerId,
+            LocalDate borrowDate, LocalTime borrowTime,
+            LocalDate dueDate) {
+
         this.bookId = bookId;
-        this.borrowerName = borrowerName;
+        this.borrowerId = borrowerId;
         this.borrowDate = borrowDate;
         this.borrowTime = borrowTime;
         this.dueDate = dueDate;
@@ -26,8 +29,8 @@ class Loan extends LibraryRecord {
         return bookId;
     }
 
-    public String getBorrowerName() {
-        return borrowerName;
+    public String getBorrowerId() {
+        return borrowerId;
     }
 
     public LocalDate getBorrowDate() {
@@ -38,16 +41,16 @@ class Loan extends LibraryRecord {
         return borrowTime;
     }
 
-    public LocalTime getReturnTime() {
-        return returnTime;
-    }
-
     public LocalDate getDueDate() {
         return dueDate;
     }
 
     public LocalDate getReturnDate() {
         return returnDate;
+    }
+
+    public LocalTime getReturnTime() {
+        return returnTime;
     }
 
     public void setReturnDate(LocalDate returnDate) {
@@ -58,11 +61,10 @@ class Loan extends LibraryRecord {
         this.returnTime = returnTime;
     }
 
-    // Polymorphism: Loan gives its own version of displayRecord.
     @Override
     public void displayRecord() {
         System.out.println("Book ID: " + bookId
-                + " | Borrower: " + borrowerName
+                + " | Borrower ID: " + borrowerId
                 + " | Borrowed: " + borrowDate + " " + borrowTime
                 + " | Due: " + dueDate
                 + " | Returned: " + returnDate + " " + returnTime);
