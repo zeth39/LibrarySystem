@@ -152,14 +152,12 @@ public static void addBook() {
         return;
     }
 
-
     String id = readRequiredText("Material ID: ");
     String title = readRequiredText("Title: ");
     String author = readRequiredText("Author: ");
     String publisher = readRequiredText("Publisher: ");
     int publicationYear = readNumber("Publication Year: ");
     int quantity = readNumber("Quantity: ");
-
 
     if (id.isEmpty() || title.isEmpty()
             || author.isEmpty() || publisher.isEmpty()
@@ -705,8 +703,6 @@ public static void showMaterialHistory() {
         System.out.println("Total transactions: " + count);
     }
 }
-
-
 
 public static void showBorrowerHistory(String borrowerId) {
 

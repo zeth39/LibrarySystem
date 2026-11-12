@@ -308,6 +308,10 @@ public class BorrowerManagement {
 
         String first = requiredText("First Name: ");
         String middle = readText("Middle Name: ");
+            while (middle.contains("|")) {
+                System.out.println("The | character is not allowed.");
+                middle = readText("Middle Name: ");
+            }
         String last = requiredText("Last Name: ");
 
         if (duplicateName(first, middle, last, id)) {
