@@ -25,7 +25,7 @@ LIBRARY CATALOGUE SYSTEM
 */
 
 public class LibrarySystem {
-    private static final List<Book> books = new ArrayList<>();
+    private static final List<LibraryMaterial> books = new ArrayList<>();
     private static final List<LibraryRecord> records = new ArrayList<>();
     private static final Path BOOKS_FILE = Path.of("books.txt");
 
@@ -43,7 +43,7 @@ public static void showCatalog() {
     } else {
         System.out.println("\n=== BOOK CATALOG ===");
         // ABUNDO PART - Collection Framework - For-loop visits each book in the list.
-        for (Book book : books) {
+        for (LibraryMaterial book : books) {
             book.displayRecord();
         }
     }
@@ -51,9 +51,9 @@ public static void showCatalog() {
 
 public static Book findBook(String id) {
     // ABUNDO PART - Search the books list with an enhanced for loop.
-    for (Book book : books) {
+    for (LibraryMaterial book : books) {
         if (book.getId().equalsIgnoreCase(id)) {
-            return book;
+            return (Book) book;
         }
     }
     return null;
@@ -74,7 +74,7 @@ public static LibraryMaterial findMaterial(String id) {
     // Also check existing books
     for (int i = 0; i < books.size(); i++) {
 
-        Book book = books.get(i);
+        LibraryMaterial book = books.get(i);
 
         if (book.getId().equalsIgnoreCase(id)) {
             return book;
@@ -160,7 +160,7 @@ public static void addBook() { //move to AdminLibrarySystem.java
 //RAGUDO PART - Write book records to Book.txt
 public static void saveBooks() {
     List<String> lines = new ArrayList<>();
-    for (Book book : books) {
+    for (LibraryMaterial book : books) {
         lines.add(book.getId() + "|" + book.getTitle() + "|" + book.getAuthor()
                 + "|" + book.getAvailableQuantity());
     }

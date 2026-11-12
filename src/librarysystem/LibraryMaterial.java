@@ -1,45 +1,36 @@
+
 package librarysystem;
 
 public abstract class LibraryMaterial extends LibraryRecord {
-    
     private String id;
     private String title;
+    private String author;
     private int availableQuantity;
 
-    public LibraryMaterial(String id, String title, int availableQuantity) {
+    public LibraryMaterial(String id, String title, String author, int quantity) {
         this.id = id;
         this.title = title;
-        this.availableQuantity = availableQuantity;
+        this.author = author;
+        this.availableQuantity = quantity;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public int getAvailableQuantity() { return availableQuantity; }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public int getAvailableQuantity() {
-        return availableQuantity;
-    }
-
-    public void setTitle(String title) {
-        if (title != null && !title.trim().isEmpty()) {
-            this.title = title;
-        } 
-    }
-
-    public void setAvailableQuantity(int availableQuantity) {
-        if (availableQuantity >= 0) {
-            this.availableQuantity = availableQuantity;
-        } else {
-            System.out.println("Quantity cannot be negative.");
-        }
+    public void setAvailableQuantity(int quantity) {
+        availableQuantity = quantity;
     }
 
     public abstract int getBorrowingDays();
+    public abstract String getMaterialType();
 
-    @Override 
-    public abstract void displayRecord();
+    @Override
+    public void displayRecord() {
+        System.out.println("ID: " + id + " | Type: " + getMaterialType()
+                + " | Title: " + title + " | Author: " + author
+                + " | Available: " + availableQuantity
+                + " | Borrowing days: " + getBorrowingDays());
+    }
 }
