@@ -39,10 +39,12 @@ public static void adminMenu() {
 
         choice = LibrarySystem.readNumber("Enter your choice: ");
 
-        if (choice == 1 || choice == 3) {
-            LibrarySystem.showAllHistory();
+        if (choice == 1) {
+            BorrowerManagement.menu();
         } else if (choice == 2) {
             bookRecordsMenu();
+        } else if (choice == 3) {
+            LibrarySystem.showAllHistory();
         } else if (choice == 4) {
             LibrarySystem.searchBook();
         } else if (choice == 5) {

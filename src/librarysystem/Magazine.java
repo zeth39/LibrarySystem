@@ -54,7 +54,6 @@ public class Magazine extends LibraryMaterial {
         return 0;
     }
 
-    // POLYMORPHISM: Magazine's own display implementation
     @Override
     public void displayRecord() {
         System.out.println("=== MAGAZINE INFORMATION ===");
