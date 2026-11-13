@@ -1,5 +1,6 @@
-
 package librarysystem;
+
+import java.time.LocalDate;
 
 public abstract class LibraryMaterial extends LibraryRecord {
     private String id;
@@ -21,20 +22,37 @@ public abstract class LibraryMaterial extends LibraryRecord {
     public String getAuthor() { return author; }
     public int getAvailableQuantity() { return availableQuantity; }
     public String getPublisher() { return publisher; }
-    public void setPublisher(String publisher) { this.publisher = publisher; }
+    
+    public void setPublisher(String publisher) {
+        if (publisher != null && !publisher.contains("|")) {
+            this.publisher = publisher;
+        }
+    }
+    
     public int getPublicationYear() { return publicationYear; }
-    public void setPublicationYear(int publicationYear) { this.publicationYear = publicationYear; }
+    
+    public void setPublicationYear(int publicationYear) {
+        if (publicationYear > 0 && publicationYear <= LocalDate.now().getYear()) {
+            this.publicationYear = publicationYear;
+        }
+    }
 
     public void setTitle(String title) {
-        this.title = title;
+        if (title != null && !title.trim().isEmpty() && !title.contains("|")) {
+            this.title = title;
+        }
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        if (author != null && !author.trim().isEmpty() && !author.contains("|")) {
+            this.author = author;
+        }
     }
 
     public void setAvailableQuantity(int quantity) {
-        availableQuantity = quantity;
+        if (quantity >= 0) {
+            availableQuantity = quantity;
+        }
     }
 
     public abstract int getBorrowingDays();

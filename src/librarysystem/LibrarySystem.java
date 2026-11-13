@@ -1,28 +1,13 @@
 package librarysystem;
 
-//additional imports
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-//necessary imports
 import java.util.List;
 import java.util.ArrayList;
-
-//FILE HANDLING imports
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-
-/*
-LIBRARY CATALOGUE SYSTEM
-- showCatalog() - displays all books in the catalog
-- findBook() - searches for a book by ID and returns the book object if found
-- searchBook() - allows users to search for a book by ID and displays its information
-- readText() - reads a string input from the user
-- readNumber() - reads an integer input from the user with error handling for non-integer inputs
-*/
 
 public class LibrarySystem {
     private static final List<LibraryMaterial> books = new ArrayList<>();
@@ -38,35 +23,23 @@ public static void showCatalog() {
         System.out.println("No books in the catalog.");
     } else {
         System.out.println("\n=== BOOK CATALOG ===");
-        // ABUNDO PART - Collection Framework - For-loop visits each book in the list.
         for (LibraryMaterial book : books) {
             book.displayRecord();
         }
     }
 }
 
-public static LibraryMaterial findBook(String id) {
-    for (LibraryMaterial book : books) {
-        if (book.getId().equalsIgnoreCase(id)) {
-            return book;
+public static LibraryMaterial findMaterial(String id) {
+    for (LibraryMaterial material : books) {
+        if (material.getId().equalsIgnoreCase(id)) {
+            return material;
         }
     }
     return null;
 }
 
-
-public static LibraryMaterial findMaterial(String id) {
-
-    for (int i = 0; i < books.size(); i++) {
-
-        LibraryMaterial material = books.get(i);
-
-        if (material.getId().equalsIgnoreCase(id)) {
-            return material;
-        }
-    }
-
-    return null;
+public static LibraryMaterial findBook(String id) {
+    return findMaterial(id);
 }
 
 public static boolean materialExists(String id) {
@@ -75,13 +48,22 @@ public static boolean materialExists(String id) {
 
 
 public static boolean registerMaterial(LibraryMaterial material) {
-
     if (material == null) {
         return false;
     }
 
     if (materialExists(material.getId())) {
         System.out.println("Material ID already exists.");
+        return false;
+    }
+
+    if (material.getTitle() == null || material.getTitle().isEmpty()
+            || material.getAuthor() == null || material.getAuthor().isEmpty()
+            || material.getPublisher() == null || material.getPublisher().isEmpty()
+            || material.getPublicationYear() <= 0
+            || material.getPublicationYear() > LocalDate.now().getYear()
+            || material.getAvailableQuantity() <= 0) {
+        System.out.println("Invalid material information.");
         return false;
     }
 
@@ -129,7 +111,6 @@ public static int readNumber(String message) {
     while (true) {
         try {
             return Integer.parseInt(readText(message));
-        // ABUNDO PART - Exception handling to reject non-integer inputs and repeat.
         } catch (NumberFormatException error) {
             System.out.println("Please enter a valid number.");
         }
@@ -298,9 +279,6 @@ public static void editMaterial() {
 }
 
 
-
-//RAGUDO PART - Write book records to Book.txt
-
 public static void saveBooks() {
     List<String> lines = new ArrayList<>();
 
@@ -323,14 +301,12 @@ public static void saveBooks() {
 }
 
 
-/* FILE HANDLING: READ BOOK RECORDS FROM BOOKS.TXT */
-
 public static void loadBooks() {
     if (!Files.exists(BOOKS_FILE)) {
         return;
     }
 
-    books.clear();
+    List<LibraryMaterial> tempBooks = new ArrayList<>();
 
     try {
         for (String line : Files.readAllLines(
@@ -379,12 +355,15 @@ public static void loadBooks() {
                     book.setPublicationYear(0);
                 }
 
-                books.add(book);
+                tempBooks.add(book);
 
             } catch (RuntimeException error) {
                 System.out.println("Skipping invalid book record.");
             }
         }
+
+        books.clear();
+        books.addAll(tempBooks);
 
     } catch (IOException error) {
         System.out.println("Could not read books.txt: "
@@ -405,7 +384,6 @@ public static void deleteBook() {
         return;
     }
 
-    // Prevent deletion if material is currently borrowed
     if (hasActiveMaterialLoan(id)) {
         System.out.println("\n=== DELETION DENIED ===");
         System.out.println("This material is currently borrowed.");
@@ -413,7 +391,6 @@ public static void deleteBook() {
         return;
     }
 
-    // Show material information before deleting
     book.displayRecord();
 
     String confirm = readText(
@@ -578,7 +555,6 @@ public static void returnBook(String borrowerId) {
 }
 
 
-//RAGUDO - Write loan records to text file
 public static void saveLoans() {
     List<String> lines = new ArrayList<>();
     for (Loan loan : loans) {
@@ -600,7 +576,6 @@ public static void saveLoans() {
 }
 
 
-//RAGUDO PART - Read loan records from loan.txt 
 public static void loadLoans() {
     loans.clear();
 
@@ -642,7 +617,6 @@ public static void loadLoans() {
     }
 }
 
-//RAGUDO PART :  Load both files and rebuild record list
 public static void loadData() {
     loadBooks();
     loadLoans();
@@ -674,7 +648,6 @@ public static void showAllHistory() {
     if (loans.size() == 0) {
         System.out.println("No loan history.");
     } else {
-        //ABUNDO PART - Collection Framework: iterate directly through the loan list.
         for (Loan loan : loans) {
             loan.displayRecord();
         }
@@ -726,7 +699,6 @@ public static void showBorrowerHistory(String borrowerId) {
 
 
 public static void showAllRecords() {
-    // ABUNDO - Collection Framework: iterate through the combined record list.
     for (LibraryRecord record : records) {
         record.displayRecord();
     }

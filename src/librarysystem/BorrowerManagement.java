@@ -81,7 +81,19 @@ public class BorrowerManagement {
 
             if (name.contains("|")) {
                 System.out.println("The | character is not allowed.");
-            } else if (name.matches("^[a-zA-Z\\s\\'-]+$")) {
+                continue;
+            }
+
+            boolean valid = true;
+            for (int i = 0; i < name.length(); i++) {
+                char c = name.charAt(i);
+                if (!Character.isLetter(c) && c != ' ' && c != '-' && c != '\'') {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid) {
                 return name;
             } else {
                 System.out.println("Invalid name! Only letters, spaces, hyphens, and apostrophes are allowed.");
@@ -361,6 +373,13 @@ public class BorrowerManagement {
 
         if (borrower == null) {
             System.out.println("Borrower not found!");
+            return;
+        }
+
+        // Prevent deletion if borrower currently has active loans
+        if (LibrarySystem.hasActiveLoan(id)) {
+            System.out.println("\n=== DELETION DENIED ===");
+            System.out.println("This borrower has active loans and cannot be deleted.");
             return;
         }
 
