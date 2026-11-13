@@ -1,6 +1,4 @@
-
 package librarysystem;
-
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -67,6 +65,28 @@ public class BorrowerManagement {
             }
         }
         return value;
+    }
+
+    public static String readBorrowerName(String message, boolean required) {
+        while (true) {
+            String name = readText(message);
+
+            if (name.isEmpty()) {
+                if (!required) {
+                    return "";
+                }
+                System.out.println("This field cannot be empty.");
+                continue;
+            }
+
+            if (name.contains("|")) {
+                System.out.println("The | character is not allowed.");
+            } else if (name.matches("^[a-zA-Z\\s\\'-]+$")) {
+                return name;
+            } else {
+                System.out.println("Invalid name! Only letters, spaces, hyphens, and apostrophes are allowed.");
+            }
+        }
     }
 
 
@@ -259,13 +279,9 @@ public class BorrowerManagement {
             return;
         }
 
-        String first = requiredText("First Name: ");
-        String middle = readText("Middle Name: ");
-            while (middle.contains("|")) {
-                System.out.println("The | character is not allowed.");
-                middle = readText("Middle Name: ");
-            }
-        String last = requiredText("Last Name: ");
+        String first = readBorrowerName("First Name: ", true);
+        String middle = readBorrowerName("Middle Name: ", false);
+        String last = readBorrowerName("Last Name: ", true);
 
         if (duplicateName(first, middle, last, "")) {
             System.out.println(
@@ -481,6 +497,5 @@ public static void loadBorrowers() {
                 + error.getMessage());
     }
 }
-
 
 }

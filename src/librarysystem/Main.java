@@ -158,6 +158,13 @@ public static void bookRecordsMenu() {
 public static void exitMessage() {
     System.out.println("\nThank you for using our Innovative and Aspiring JK.YS Library System!");
     System.out.println("Developed by Team J.K.Y.S Tech");
+    System.out.println("Leader: Kurt Angelo C. Rodulfo");
+    System.out.println("Members: Gabriel Moses C. Abundo");
+    System.out.println("Seth Ashton D. Orteza");
+    System.out.println("Simoun Justin C. Ragudo");
+    
+    System.out.println("We hope you enjoyed your experience with our system.");
+    System.out.println("If you have any feedback or suggestions, please let us know.");
     System.out.println("Hope to see you again soon!");
 }
 
