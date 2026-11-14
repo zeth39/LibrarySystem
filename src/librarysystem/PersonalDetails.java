@@ -23,9 +23,22 @@ class PersonalDetails extends Information {
         while (true) {
             System.out.println(prompt);
             String name = Main.input.nextLine().trim();
+            
             if (name.isEmpty()) {
                 System.out.println("This field cannot be empty.");
-            } else if (name.matches("^[a-zA-Z\\s\\'-]+$")) {
+                continue;
+            }
+            
+            boolean valid = true;
+            for (int i = 0; i < name.length(); i++) {
+                char c = name.charAt(i);
+                if (!Character.isLetter(c) && c != ' ' && c != '-' && c != '\'') {
+                    valid = false;
+                    break;
+                }
+            }
+            
+            if (valid) {
                 return name;
             } else {
                 System.out.println("Invalid name! Only letters, spaces, hyphens, and apostrophes are allowed.");

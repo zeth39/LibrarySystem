@@ -1,6 +1,4 @@
 package librarysystem;
-//import java.time.LocalDate;
-//import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
@@ -14,7 +12,6 @@ public class Main {
         System.out.println("---===== Welcome to the JK.YS Library System =====---");
         System.out.println("Developed by Team J.K.Y.S Tech");
         
-        //Priviledge
         Information activeUser = TypeMenu.call();
         
         if (activeUser.privilege == 3){
@@ -67,6 +64,23 @@ public static void adminMenu() {
 public static void studentMenu(String borrowerName) {
     int choice = -1;
 
+    System.out.println("\n=== STUDENT VERIFICATION ===");
+    System.out.println("Logged in as: " + borrowerName);
+    String borrowerId = LibrarySystem.readText("Enter your assigned Borrower ID to confirm identity: ");
+
+    Borrower borrower = BorrowerManagement.findBorrower(borrowerId);
+    if (borrower == null) {
+        System.out.println("Borrower ID not found! Access denied.");
+        return;
+    }
+    String registeredFullName = (borrower.getFirstName() + " " + borrower.getLastName()).trim();
+    if (!registeredFullName.equalsIgnoreCase(borrowerName) && !borrower.getFirstName().equalsIgnoreCase(borrowerName)) {
+        System.out.println("Security Warning: The Borrower ID entered does not match your login name!");
+        return;
+    }
+
+    System.out.println("Identity verified successfully!");
+
     while (choice != 0) {
         System.out.println("\n=== STUDENT MENU ===");
         System.out.println("1. Borrow book");
@@ -79,16 +93,13 @@ public static void studentMenu(String borrowerName) {
         choice = LibrarySystem.readNumber("Enter your choice: ");
 
         if (choice == 1) {
-            LibrarySystem.borrowBook(
-                LibrarySystem.readText("Borrower ID: "));
+            LibrarySystem.borrowBook(borrowerId);
         } else if (choice == 2) {
-            LibrarySystem.returnBook(
-                LibrarySystem.readText("Borrower ID: "));
+            LibrarySystem.returnBook(borrowerId);
         } else if (choice == 3) {
             LibrarySystem.showCatalog();
         } else if (choice == 4) {
-            LibrarySystem.showBorrowerHistory(
-                LibrarySystem.readText("Borrower ID: "));
+            LibrarySystem.showBorrowerHistory(borrowerId);
         } else if (choice == 5) {
             LibrarySystem.showAllMaterials();
         } else if (choice != 0) {

@@ -81,7 +81,19 @@ public class BorrowerManagement {
 
             if (name.contains("|")) {
                 System.out.println("The | character is not allowed.");
-            } else if (name.matches("^[a-zA-Z\\s\\'-]+$")) {
+                continue;
+            }
+
+            boolean valid = true;
+            for (int i = 0; i < name.length(); i++) {
+                char c = name.charAt(i);
+                if (!Character.isLetter(c) && c != ' ' && c != '-' && c != '\'') {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid) {
                 return name;
             } else {
                 System.out.println("Invalid name! Only letters, spaces, hyphens, and apostrophes are allowed.");
@@ -322,13 +334,9 @@ public class BorrowerManagement {
 
         System.out.println("\nEnter new information:");
 
-        String first = requiredText("First Name: ");
-        String middle = readText("Middle Name: ");
-            while (middle.contains("|")) {
-                System.out.println("The | character is not allowed.");
-                middle = readText("Middle Name: ");
-            }
-        String last = requiredText("Last Name: ");
+        String first = readBorrowerName("First Name: ", true);
+        String middle = readBorrowerName("Middle Name: ", false);
+        String last = readBorrowerName("Last Name: ", true);
 
         if (duplicateName(first, middle, last, id)) {
             System.out.println(
@@ -365,6 +373,12 @@ public class BorrowerManagement {
 
         if (borrower == null) {
             System.out.println("Borrower not found!");
+            return;
+        }
+        
+        if (LibrarySystem.hasActiveLoan(id)) {
+            System.out.println("\n=== DELETION DENIED ===");
+            System.out.println("This borrower has active loans and cannot be deleted.");
             return;
         }
 

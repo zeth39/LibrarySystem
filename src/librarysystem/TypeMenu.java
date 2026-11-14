@@ -19,13 +19,11 @@ class TypeMenu {
             switch (choice) {
                 case 1:
                     System.out.println("Guest chosen");
-                    //Sets information automatically due to being a guest
                     currentUser = new Information("Guest User", "Guest", 1);
                     break;
 
                     case 2:
                         System.out.println("Student Chosen");
-                        //Call studentDetails()
                         currentUser = PersonalDetails.studentDetails();
                         break;
 
