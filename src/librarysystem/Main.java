@@ -1,6 +1,4 @@
 package librarysystem;
-//import java.time.LocalDate;
-//import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
@@ -14,7 +12,6 @@ public class Main {
         System.out.println("---===== Welcome to the JK.YS Library System =====---");
         System.out.println("Developed by Team J.K.Y.S Tech");
         
-        //Priviledge
         Information activeUser = TypeMenu.call();
         
         if (activeUser.privilege == 3){

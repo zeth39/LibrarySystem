@@ -375,8 +375,7 @@ public class BorrowerManagement {
             System.out.println("Borrower not found!");
             return;
         }
-
-        // Prevent deletion if borrower currently has active loans
+        
         if (LibrarySystem.hasActiveLoan(id)) {
             System.out.println("\n=== DELETION DENIED ===");
             System.out.println("This borrower has active loans and cannot be deleted.");
